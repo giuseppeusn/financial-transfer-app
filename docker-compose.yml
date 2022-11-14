@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  frontend:
+    image: node:16.14
+    platform: linux/x86_64
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - 3000:3000
+    environment:
+      - WATCHPACK_POLLING=true
+    working_dir: /app-frontend
+    volumes:
+      - ./frontend:/app-frontend
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    depends_on:
+      - backend
+  backend:
+    image: node:16.14
+    platform: linux/x86_64
+    container_name: backend
+    build: ./backend
+    working_dir: /app-backend
+    volumes:
+      - ./backend:/app-backend
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 3001:3001
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      HOSTNAME: db
+      JWT_SECRET: secretJWT
+  db:
+    image: postgres
+    platform: linux/x86_64
+    container_name: database
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example

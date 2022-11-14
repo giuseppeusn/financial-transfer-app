@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --legacy-watch src/api/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,11 @@
     "@typescript-eslint/parser": "^5.43.0",
     "eslint": "^8.27.0",
     "eslint-config-trybe-backend": "^2.1.0",
+    "nodemon": "^2.0.20",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
   }
 }
