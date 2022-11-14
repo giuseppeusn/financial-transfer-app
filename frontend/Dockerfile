@@ -1,6 +1,6 @@
-FROM node:16.14
+FROM node:16.14-alpine
 WORKDIR /app-frontend
  
-COPY package.json /app-frontend
+COPY . .
 RUN npm install
 CMD ["npm", "start"]
