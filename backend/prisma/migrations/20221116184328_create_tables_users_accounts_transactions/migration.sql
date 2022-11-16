@@ -33,12 +33,6 @@ CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_accountId_key" ON "Users"("accountId");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Transactions_debitedAccountId_key" ON "Transactions"("debitedAccountId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Transactions_creditedAccountId_key" ON "Transactions"("creditedAccountId");
-
 -- AddForeignKey
 ALTER TABLE "Users" ADD CONSTRAINT "Users_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Accounts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
