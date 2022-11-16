@@ -37,9 +37,12 @@ export default class UserService {
   }
 
   public getUserByUsername = async (username: string): Promise<Users | null> => {
-    const user = await this.prisma.users.findUnique({
+    const user = await this.prisma.users.findFirst({
       where: {
-        username,
+        username: {
+          equals: username,
+          mode: 'insensitive',
+        }
       }
     });
 
