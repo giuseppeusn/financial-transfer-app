@@ -16,14 +16,14 @@ const generateToken = (id: number | undefined, username: string) => {
   return token;
 };
 
-export const validateToken = (token: string): IJwtPayload => {
-  try {
+export const validateToken = (token: string | undefined): IJwtPayload => { 
+  if (token) {      
     const { id } = jwt.verify(token, SECRET) as IJwtPayload;
 
     return { id };
-  } catch (err) {
-    throw Error(ErrorTypes.InvalidToken);
   }
+
+  throw Error(ErrorTypes.TokenNotFound);
 };
 
 export default generateToken;
