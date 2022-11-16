@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -7,9 +8,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   id        Int      @id @default(autoincrement())
-  usename   String   @unique
+  username  String   @unique
   password  String
   accountId Int      @unique
   accounts  Accounts @relation(fields: [accountId], references: [id])
@@ -17,17 +18,17 @@ model User {
 
 model Accounts {
   id              Int            @id @default(autoincrement())
-  balance         Decimal        @default(100.00) @db.Decimal(19, 4)
-  users           User?
+  balance         Decimal        @default(0) @db.Decimal(19, 2)
+  users           Users?
   debitedAccount  Transactions[] @relation("debitedAccount")
   creditedAccount Transactions[] @relation("creditedAccount")
 }
 
 model Transactions {
   id                Int      @id @default(autoincrement())
-  debitedAccountId  Int      @unique
-  creditedAccountId Int      @unique
-  value             Decimal  @db.Decimal(19, 4)
+  debitedAccountId  Int
+  creditedAccountId Int
+  value             Decimal  @db.Decimal(19, 2)
   createdAt         DateTime @default(now())
   debitedAccount    Accounts @relation("debitedAccount", fields: [debitedAccountId], references: [id])
   creditedAccount   Accounts @relation("creditedAccount", fields: [creditedAccountId], references: [id])
