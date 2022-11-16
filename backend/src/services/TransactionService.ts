@@ -7,12 +7,16 @@ import TransactionManagement from "../interfaces/TransactionManagement";
 export default class TransactionService {
   public prisma = new PrismaClient();
 
-  public createTransaction = async (debitedAccountId: number, creditedAccountId: number, value: number): Promise<Transactions> => {
+  public createTransaction = async (debitedAccountId: number, creditedAccountId: number | undefined, value: number): Promise<Transactions> => {
     if (debitedAccountId === creditedAccountId) {
       throw Error(ErrorTypes.InvalidTransaction);
     }
 
-    const parsed = TransactionSchema.safeParse({ debitedAccountId, creditedAccountId, value });
+    if (!creditedAccountId) {
+      throw Error(ErrorTypes.UserNotFound);
+    }
+
+    const parsed = TransactionSchema.safeParse({ creditedAccountId, value });
 
     if (!parsed.success) {
       throw parsed.error;
