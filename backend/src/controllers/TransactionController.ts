@@ -16,4 +16,14 @@ export default class TransactionController {
 
     return res.status(StatusCodes.CREATED).json(transaction);
   }
+
+  public getTransactionsById = async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+
+    const { id } = validateToken(authorization);
+
+    const transactions = await this.transactionService.getTransactionsById(id);
+
+    return res.status(StatusCodes.OK).json(transactions);
+  }
 }

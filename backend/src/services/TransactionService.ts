@@ -1,12 +1,13 @@
 import { PrismaClient, Transactions } from "@prisma/client";
 import { TransactionSchema } from "../interfaces/ITransaction";
 import { ErrorTypes } from "../errors/Catalog";
+import serializTransactions from "../utils/SerializeTransactions";
+import TransactionManagement from "../interfaces/TransactionManagement";
 
 export default class TransactionService {
   public prisma = new PrismaClient();
 
   public createTransaction = async (debitedAccountId: number, creditedAccountId: number, value: number): Promise<Transactions> => {
-
     if (debitedAccountId === creditedAccountId) {
       throw Error(ErrorTypes.InvalidTransaction);
     }
@@ -54,5 +55,24 @@ export default class TransactionService {
 
       return transaction;
     });
+  }
+
+  public getTransactionsById = async (id: number): Promise<TransactionManagement[]> => {
+    const transactions = await this.prisma.transactions.findMany({
+      where: {
+        OR: [
+          {
+            debitedAccountId: id,
+          },
+          {
+            creditedAccountId: id,
+          }
+        ]
+      },
+    });
+
+    const serialized = await serializTransactions(transactions, id);
+    
+    return serialized;
   }
 }

@@ -46,6 +46,16 @@ export default class UserService {
     return user;
   }
 
+  public getUserById = async (accountId: number): Promise<Users | null> => {
+    const user = await this.prisma.users.findUnique({
+      where: {
+        accountId,
+      }
+    });
+
+    return user;
+  }
+
   public loginUser = async (username: string, password: string): Promise<IUser | null> => {
     const user = await this.getUserByUsername(username);
 
