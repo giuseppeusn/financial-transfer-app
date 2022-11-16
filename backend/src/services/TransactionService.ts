@@ -1,7 +1,7 @@
 import { PrismaClient, Transactions } from "@prisma/client";
 import { TransactionSchema } from "../interfaces/ITransaction";
 import { ErrorTypes } from "../errors/Catalog";
-import serializTransactions from "../utils/SerializeTransactions";
+import serializeTransactions from "../utils/SerializeTransactions";
 import TransactionManagement from "../interfaces/TransactionManagement";
 
 export default class TransactionService {
@@ -71,7 +71,7 @@ export default class TransactionService {
       },
     });
 
-    const serialized = await serializTransactions(transactions, id);
+    const serialized = await serializeTransactions(transactions, id);
     
     return serialized;
   }

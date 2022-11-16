@@ -5,7 +5,7 @@ const getData = (data: Date) => data.toLocaleDateString("pt-BR", {timeZone: "Ame
 
 const getHours = (data: Date) => data.toLocaleTimeString("pt-BR", {timeZone: "America/Sao_Paulo"});
 
-const serializTransactions = async (transactions: Transactions[], id: number) => {
+const serializeTransactions = async (transactions: Transactions[], id: number) => {
   const userService = new UserService();
 
 
@@ -34,4 +34,4 @@ const serializTransactions = async (transactions: Transactions[], id: number) =>
   }));
 }
 
-export default serializTransactions;
+export default serializeTransactions;
