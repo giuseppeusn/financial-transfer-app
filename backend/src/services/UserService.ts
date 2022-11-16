@@ -1,19 +1,13 @@
 import { PrismaClient, Users } from '@prisma/client';
+import generateToken from '../utils/Token';
 import { ErrorTypes } from '../errors/Catalog';
-import { ILogin, LoginSchema } from '../interfaces/ILogin';
-// import { hashPassword } from '../utils/crypt';
+import { hashPassword, comparePassword } from '../utils/Crypt';
 
 export default class UserService {
   public prisma = new PrismaClient();
 
-  public registerUser = async (username: string, password: string): Promise<Users> => {
-    // const encryptedPassword = await hashPassword(password);
-
-    const parsed = LoginSchema.safeParse({ username, password });
-
-    if (!parsed.success) {
-      throw parsed.error;
-    }
+  public registerUser = async (username: string, password: string): Promise<string> => {
+    const encryptedPassword = await hashPassword(password);
 
     const existUser = await this.getUserByUsername(username);
 
@@ -24,19 +18,18 @@ export default class UserService {
     const user = await this.prisma.users.create({
       data: {
         username,
-        password,
+        password: encryptedPassword,
         accounts: {
           create: {
             balance: 100.00,
           }
         }
-      },
-      include: {
-        accounts: false,
       }
     });
 
-    return user;
+    const token = generateToken(user.accountId, user.username);
+
+    return token;
   }
 
   public getUserByUsername = async (username: string): Promise<Users | null> => {
@@ -47,5 +40,23 @@ export default class UserService {
     });
 
     return user;
+  }
+
+  public loginUser = async (username: string, password: string): Promise<string | null> => {
+    const user = await this.getUserByUsername(username);
+
+    if (user) {
+      const isPasswordValid = await comparePassword(password, user.password);
+
+      if (isPasswordValid) {
+        const token = generateToken(user.accountId, user.username);
+
+        return token;
+      }
+
+      return null; 
+    }
+
+    return null;    
   }
 }
