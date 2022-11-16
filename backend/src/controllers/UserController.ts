@@ -8,19 +8,19 @@ export default class UserController {
 
   public registerUser = async (req: Request, res: Response) => {
     const { username, password } = req.body;
-    const token = await this.userService.registerUser(username, password);
+    const user = await this.userService.registerUser(username, password);
 
-    return res.status(StatusCodes.CREATED).json({ token });
+    return res.status(StatusCodes.CREATED).json(user);
   }
 
   public loginUser = async (req: Request, res: Response) => {
     const { username, password } = req.body;
-    const token = await this.userService.loginUser(username, password);
+    const user = await this.userService.loginUser(username, password);
 
-    if (!token) {
+    if (!user) {
       throw Error(ErrorTypes.InvalidCredentials);
     }
 
-    return res.status(StatusCodes.OK).json({ token });
+    return res.status(StatusCodes.OK).json(user);
   }
 }

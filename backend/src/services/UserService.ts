@@ -2,11 +2,12 @@ import { PrismaClient, Users } from '@prisma/client';
 import generateToken from '../utils/Token';
 import { ErrorTypes } from '../errors/Catalog';
 import { hashPassword, comparePassword } from '../utils/Crypt';
+import IUser from '../interfaces/IUser';
 
 export default class UserService {
   public prisma = new PrismaClient();
 
-  public registerUser = async (username: string, password: string): Promise<string> => {
+  public registerUser = async (username: string, password: string): Promise<IUser> => {
     const encryptedPassword = await hashPassword(password);
 
     const existUser = await this.getUserByUsername(username);
@@ -24,25 +25,28 @@ export default class UserService {
             balance: 100.00,
           }
         }
+      },
+      include: {
+        accounts: false,
       }
     });
 
     const token = generateToken(user.accountId, user.username);
 
-    return token;
+    return { username: user.username, token };
   }
 
   public getUserByUsername = async (username: string): Promise<Users | null> => {
     const user = await this.prisma.users.findUnique({
       where: {
         username,
-      },
+      }
     });
 
     return user;
   }
 
-  public loginUser = async (username: string, password: string): Promise<string | null> => {
+  public loginUser = async (username: string, password: string): Promise<IUser | null> => {
     const user = await this.getUserByUsername(username);
 
     if (user) {
@@ -51,7 +55,7 @@ export default class UserService {
       if (isPasswordValid) {
         const token = generateToken(user.accountId, user.username);
 
-        return token;
+        return { username: user.username, token };
       }
 
       return null; 
