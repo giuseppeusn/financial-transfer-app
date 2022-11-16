@@ -5,7 +5,6 @@ services:
     build: ./frontend
     ports:
       - 3000:3000
-    platform: linux/x86_64
     working_dir: /app-frontend
     volumes:
       - ./frontend:/app-frontend
@@ -16,23 +15,14 @@ services:
     build: ./backend
     ports:
       - 3001:3001
-    platform: linux/x86_64
     working_dir: /app-backend
     volumes:
       - ./backend:/app-backend
     depends_on:
       - db
-    environment:
-      - APP_PORT=3001
-      - JWT_SECRET=jwt_secret
-      - DB_USER=root
-      - DB_PASS=123456
-      - DB_HOST=db
-      - DB_PORT=3306
   db:
     image: postgres
     container_name: db
-    platform: linux/x86_64
     restart: 'always'
     ports:
       - 5432:5432
