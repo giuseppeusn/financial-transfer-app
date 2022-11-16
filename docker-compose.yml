@@ -34,5 +34,8 @@ services:
     container_name: db
     platform: linux/x86_64
     restart: 'always'
+    ports:
+      - 5432:5432
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: root
