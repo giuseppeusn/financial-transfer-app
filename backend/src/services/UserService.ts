@@ -3,6 +3,7 @@ import generateToken from '../utils/Token';
 import { ErrorTypes } from '../errors/Catalog';
 import { hashPassword, comparePassword } from '../utils/Crypt';
 import IUser from '../interfaces/IUser';
+import { RegisterSchema } from '../interfaces/IRegister';
 
 export default class UserService {
   public prisma = new PrismaClient();
@@ -14,6 +15,12 @@ export default class UserService {
 
     if (existUser) {
       throw Error(ErrorTypes.AlreadyExist);
+    }
+
+    const parsed = RegisterSchema.safeParse({ username, password });
+
+    if (!parsed.success) {
+      throw parsed.error;
     }
 
     const user = await this.prisma.users.create({
