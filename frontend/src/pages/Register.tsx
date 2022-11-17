@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormLogin from "../components/FormLogin";
+import IAxiosError from "../interfaces/ResponseDataError";
 import { registerRequest, setToken } from "../services/requests";
 import mobilePay from "../svg/mobile_pay.svg";
 
@@ -51,11 +52,15 @@ function Register() {
     }
 
     return true;
-  };
+  };  
 
   const handleError = (err: AxiosError) => {
-    if (err.response && err.response.status === 409) {
-      setError("Nome de usuário já cadastrado");
+    if (err.response) {
+      const { response: { data: { code }, status } } = err as IAxiosError;
+
+      if (status === 409 && code === "user_exist") {
+        setError("Nome de usuário já cadastrado");
+      }
     } else {
       setError("Erro ao fazer login");
     }

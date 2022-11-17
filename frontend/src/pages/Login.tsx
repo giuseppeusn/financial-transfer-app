@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormLogin from "../components/FormLogin";
+import IAxiosError from "../interfaces/ResponseDataError";
 import { loginRequest, setToken } from "../services/requests";
 import mainImage from '../svg/transfer_money.svg';
 
@@ -21,10 +22,14 @@ function Login() {
     setError("");
   };
 
-  const handleError = (err: AxiosError) => {
-    if (err.response && err.response.status === 401) {
-      setError("Usuário ou senha inválidos");
-    } else {
+  const handleError = (err: AxiosError) => {    
+    if (err.response) {
+      const { response: { data: { code }, status } } = err as IAxiosError;      
+
+      if (status === 401 && code === "invalid_credentials") {
+        setError("Usuário ou senha inválidos");
+      }
+    } else {      
       setError("Erro ao fazer login");
     }
   };
@@ -37,8 +42,7 @@ function Login() {
       return;
     }
     
-    const response = await loginRequest(username, password);
-    
+    const response = await loginRequest(username, password);    
 
     if (response instanceof AxiosError) {
       handleError(response);
