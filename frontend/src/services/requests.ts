@@ -20,3 +20,15 @@ export const loginRequest = async (username: string, password: string) => {
     return error;
   }
 }
+
+export const registerRequest = async (username: string, password: string) => {
+  try {
+    const data = await axiosRequest.post('/user/register', { username, password });
+
+    return data;
+  } catch (err) {
+    const error = err as AxiosError;
+
+    return error;
+  }
+}

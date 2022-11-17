@@ -26,7 +26,7 @@ function FormLogin({
   handleSecondaryBtn,
 }: FormLoginProps ) {
   return (
-  <form
+    <form
       className="w-96 h-96 flex flex-col items-center
       justify-around bg-white rounded-xl py-3"
     >
@@ -59,7 +59,7 @@ function FormLogin({
       />
       <p
         className={`
-          h-[1.5rem]
+          h-[1.5rem] w-4/5 text-center mb-3
           ${error ? "text-red-800" : "text-transparent" }
           transition-all ease-in duration-200`}
       >
@@ -70,14 +70,14 @@ function FormLogin({
         onClick={ (e) => handleMainBtn(e) }
         className="w-4/5 bg-black text-white p-2
         rounded-md uppercase hover:bg-zinc-800"
-        >
+      >
         { mainButton }
       </button>
       <span
         onClick={ handleSecondaryBtn }
         className="w-4/5 text-zinc-500 font-semibold
         text-center hover:cursor-pointer hover:text-zinc-900"
-        >
+      >
         { secondaryButton }
       </span>
     </form>

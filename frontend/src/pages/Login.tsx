@@ -22,7 +22,7 @@ function Login() {
   };
 
   const handleError = (err: AxiosError) => {
-    if (err.response && err.response.status === 400) {
+    if (err.response && err.response.status === 401) {
       setError("Usuário ou senha inválidos");
     } else {
       setError("Erro ao fazer login");
@@ -38,14 +38,15 @@ function Login() {
     }
     
     const response = await loginRequest(username, password);
+    
 
     if (response instanceof AxiosError) {
       handleError(response);
       return;
-    } else {
-      navigate("/panel");
-      setToken(response.data.token, response.data.username);
     }
+
+    setToken(response.data.token, response.data.username);
+    navigate("/panel");
   };
 
   const handleRegister = () => navigate("/register");
@@ -53,7 +54,7 @@ function Login() {
   return (
     <section
       className="h-screen flex justify-around items-center
-      bg-zinc-800"
+      bg-zinc-800 select-none"
     >
       <img src={mainImage} alt="Transfer money" className="h-[35rem]" />
       <FormLogin
