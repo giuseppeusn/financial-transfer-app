@@ -53,9 +53,9 @@ function Login() {
   return (
     <section
       className="h-screen flex justify-around items-center
-      bg-zinc-800 z-1"
+      bg-zinc-800"
     >
-      <img src={mainImage} alt="Transfer money" className="h-[35rem] z-10" />
+      <img src={mainImage} alt="Transfer money" className="h-[35rem]" />
       <FormLogin
         title="Fazer login"
         mainButton="Login"

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 import UserPanel from './pages/UserPanel';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Login /> } />
         <Route path="/panel" element={ <UserPanel /> } />
+        <Route path="*" element={ <NotFound /> } />
       </Routes>
     </BrowserRouter>
   );
