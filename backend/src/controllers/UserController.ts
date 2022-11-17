@@ -2,6 +2,7 @@ import UserService from "../services/UserService";
 import { Request, Response } from "express";
 import { StatusCodes } from "../utils/HttpStatusCode";
 import { ErrorTypes } from "../errors/Catalog";
+import { validateToken } from "../utils/Token";
 
 export default class UserController {
   public userService = new UserService();
@@ -23,4 +24,17 @@ export default class UserController {
 
     return res.status(StatusCodes.OK).json(user);
   }
+
+  public validateToken = async (req: Request, res: Response) => {
+    const { token } = req.body;
+
+    if (!token) {
+      throw Error(ErrorTypes.TokenNotFound);
+    }
+
+    validateToken(token);
+
+    return res.status(StatusCodes.NO_CONTENT).end();
+  }
+
 }
