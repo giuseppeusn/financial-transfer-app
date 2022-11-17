@@ -10,6 +10,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleUser = (e: FormEvent<HTMLInputElement>) => {
@@ -22,12 +23,14 @@ function Login() {
     setError("");
   };
 
-  const handleError = (err: AxiosError) => {    
+  const handleError = (err: AxiosError) => {       
     if (err.response) {
       const { response: { data: { code }, status } } = err as IAxiosError;      
 
       if (status === 401 && code === "invalid_credentials") {
         setError("Usuário ou senha inválidos");
+      } else {
+        setError("Erro ao fazer login");
       }
     } else {      
       setError("Erro ao fazer login");
@@ -42,7 +45,9 @@ function Login() {
       return;
     }
     
-    const response = await loginRequest(username, password);    
+    setLoading(true);
+    const response = await loginRequest(username, password);
+    setLoading(false);
 
     if (response instanceof AxiosError) {
       handleError(response);
@@ -72,6 +77,7 @@ function Login() {
         handlePass={handlePass}
         handleMainBtn={handleLogin}
         handleSecondaryBtn={handleRegister}
+        loading={loading}
       />
     </section>
   );

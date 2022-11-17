@@ -1,4 +1,5 @@
 import React from "react";
+import dotsLoad from "../svg/3_dots_load.svg";
 
 interface FormLoginProps {
   mainButton: string;
@@ -7,6 +8,7 @@ interface FormLoginProps {
   username: string;
   password: string;
   error: string;
+  loading: boolean;
   handleUser: (e: React.FormEvent<HTMLInputElement>) => void;
   handlePass: (e: React.FormEvent<HTMLInputElement>) => void;
   handleMainBtn: (e: React.FormEvent<HTMLButtonElement>) => void;
@@ -20,6 +22,7 @@ function FormLogin({
   username,
   password,
   error,
+  loading,
   handleUser,
   handlePass,
   handleMainBtn,
@@ -68,10 +71,16 @@ function FormLogin({
       <button
         type="submit"
         onClick={ (e) => handleMainBtn(e) }
-        className="w-4/5 bg-black text-white p-2
-        rounded-md uppercase hover:bg-zinc-800"
+        className="w-4/5 h-[2.5rem] bg-black text-white p-2
+        rounded-md uppercase hover:bg-zinc-800 flex justify-center items-center"
+        disabled={ loading }
       >
-        { mainButton }
+        { loading ? (
+            <img src={ dotsLoad } alt="Loading" className="h-8" />
+          ) : (
+            mainButton
+          )
+        }
       </button>
       <span
         onClick={ handleSecondaryBtn }

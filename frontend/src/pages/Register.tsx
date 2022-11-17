@@ -10,6 +10,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleUser = (e: FormEvent<HTMLInputElement>) => {
@@ -60,9 +61,11 @@ function Register() {
 
       if (status === 409 && code === "user_exist") {
         setError("Nome de usuário já cadastrado");
+      } else {
+        setError("Erro ao criar a conta");
       }
     } else {
-      setError("Erro ao fazer login");
+      setError("Erro ao criar a conta");
     }
   };
 
@@ -72,11 +75,13 @@ function Register() {
     const checkUsername = validateUsername();
     const checkPassword = validatePassword();
 
-    if (!checkUsername && !checkPassword) {
+    if (!checkUsername || !checkPassword) {
       return;
     }
 
+    setLoading(true);
     const response = await registerRequest(username, password);
+    setLoading(false);
 
     if (response instanceof AxiosError) {
       handleError(response);
@@ -102,6 +107,7 @@ function Register() {
         username={username}
         password={password}
         error={error}
+        loading={loading}
         handleUser={handleUser}
         handlePass={handlePass}
         handleMainBtn={handleRegister}
