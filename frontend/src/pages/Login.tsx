@@ -1,6 +1,9 @@
+import { AxiosError } from "axios";
 import React, { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FormLogin from "../components/FormLogin";
 import { loginRequest, setToken } from "../services/requests";
+import mainImage from '../svg/transfer_money.svg';
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -18,86 +21,53 @@ function Login() {
     setError("");
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLButtonElement>) => {
+  const handleError = (err: AxiosError) => {
+    if (err.response && err.response.status === 400) {
+      setError("Usuário ou senha inválidos");
+    } else {
+      setError("Erro ao fazer login");
+    }
+  };
+
+  const handleLogin = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (!username || !password) {
+    if(!username || !password) {
       setError("Preencha todos os campos");
       return;
     }
     
     const response = await loginRequest(username, password);
 
-    if (response) {
-      if (response.status === 200) {
-        navigate("/panel");
-        setToken(response.data.token, response.data.username);
-      } else {
-        setError("Usuário ou senha incorretos");
-      }
+    if (response instanceof AxiosError) {
+      handleError(response);
+      return;
     } else {
-      console.log("Internal error");
+      navigate("/panel");
+      setToken(response.data.token, response.data.username);
     }
   };
 
+  const handleRegister = () => navigate("/register");
+
   return (
     <section
-      className="h-screen flex justify-center items-center
-      bg-gradient-to-r from-[#414141] to-[#000000]"
+      className="h-screen flex justify-around items-center
+      bg-zinc-800 z-1"
     >
-      <form
-        className="w-96 h-96 flex flex-col items-center
-        justify-around bg-white rounded-xl py-3"
-      >
-        <h1 className="uppercase font-bold">Banco de transferências</h1>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={ username }
-          placeholder="Usuário"
-          onChange={ (e) => handleUser(e) }
-          className="appearance-none bg-transparent border-b-2
-          border-gray-300 outline-none w-4/5 text-stone-700 mr-3 py-3 px-2
-          leading-tight focus:border-stone-900 transition-all 
-          ease-in duration-300"
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={ password }
-          placeholder="Senha"
-          onChange={ (e) => handlePass(e) }
-          className="appearance-none bg-transparent border-b-2
-          border-gray-300 outline-none w-4/5 text-stone-700 mr-3 py-3 px-2
-          leading-tight focus:border-stone-900 transition-all 
-          ease-in duration-300"
-        />
-        <p
-          className={`
-            h-[1.5rem]
-            ${error ? "text-red-800" : "text-transparent" }
-            transition-all ease-in duration-200`}
-        >
-          { error }
-        </p>
-        <button
-          type="submit"
-          onClick={ (e) => handleSubmit(e) }
-          className="w-3/5 bg-black text-white p-2
-          rounded-md uppercase hover:bg-stone-800"
-          >
-          Login
-        </button>
-        <span
-          // onClick={ (e) => handleSubmit(e) }
-          className="w-4/5 text-stone-500 font-semibold
-          text-center hover:cursor-pointer hover:text-stone-900"
-          >
-          Crie uma conta
-        </span>
-      </form>
+      <img src={mainImage} alt="Transfer money" className="h-[35rem] z-10" />
+      <FormLogin
+        title="Fazer login"
+        mainButton="Login"
+        secondaryButton="Crie uma conta"
+        username={username}
+        password={password}
+        error={error}
+        handleUser={handleUser}
+        handlePass={handlePass}
+        handleMainBtn={handleLogin}
+        handleSecondaryBtn={handleRegister}
+      />
     </section>
   );
 }

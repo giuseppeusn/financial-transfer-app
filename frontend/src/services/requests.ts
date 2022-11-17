@@ -1,26 +1,22 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError } from 'axios';
 
-export const api = axios.create({
+export const axiosRequest = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
 });
 
 export const setToken = (token: string, username: string) => {
-  api.defaults.headers.common.Authorization = token;
+  axiosRequest.defaults.headers.common.Authorization = token;
   localStorage.setItem("user", JSON.stringify({ username, token }));
 };
 
-export const loginRequest = async (username: string, password: string): Promise<AxiosResponse | undefined> => {
+export const loginRequest = async (username: string, password: string) => {
   try {
-    const data = await api.post('/user/login', { username, password });
+    const data = await axiosRequest.post('/user/login', { username, password });
 
     return data;
   } catch (err) {
     const error = err as AxiosError;
 
-    if (error?.response) {
-      return error?.response;
-    }
-
-    console.log(err);
+    return error;
   }
 }
