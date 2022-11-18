@@ -5,7 +5,7 @@
 Um projeto full stack que permite um usuário fazer transferência de dinheiro para outro. Para acesso à aplicação é necessário que o usuário faça autenticação na plataforma ou faço o cadastro. Após autenticado o usuário receberá automaticamente R$ 100,00 em sua conta e tem acesso ao painel que mostra o seu saldo atual, um campo para digitar um usuário que ele deseja enviar dinheiro e um histórico de transações, mostrando envios e recebimentos de dinheiro na conta.
 
 ## Desenvolvido utilizando (principais stacks)
-> TypeScript, Node JS, React JS, PostgreSQL, Prisma ORM, Express JS
+> TypeScript, Node JS, React JS, PostgreSQL, Prisma ORM, Express JS e Tailwind CSS
 
 ## Rodando o projeto
 > 1 - Clone o projeto <br>
