@@ -32,3 +32,25 @@ export const registerRequest = async (username: string, password: string) => {
     return error;
   }
 }
+
+export const validateToken = async (token: string) => {
+  try {
+    await axiosRequest.post('/user/validate', { token });
+  } catch (err) {
+    const error = err as AxiosError;
+
+    return error;
+  }
+}
+
+export const accountRequest = async () => {
+  const data = await axiosRequest.get('/account');
+
+  return data;
+}
+
+export const transactionsRequest = async () => {
+  const data = await axiosRequest.get('/transaction');
+
+  return data;
+}
