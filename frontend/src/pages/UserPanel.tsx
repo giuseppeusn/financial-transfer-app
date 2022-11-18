@@ -40,7 +40,6 @@ function UserPanel() {
 
   const fetchAccount = async () => {
     const response = await accountRequest();
-    console.log(typeof response.data.balance);
     
     
     fetchTransactions();    
