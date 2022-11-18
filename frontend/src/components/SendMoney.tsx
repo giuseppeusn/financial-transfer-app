@@ -1,8 +1,9 @@
 import { AxiosError } from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
+import Context, { ContextInterface } from "../context/Context";
 import IAxiosError from "../interfaces/ResponseDataError";
-import { createTransaction } from "../services/requests";
+import { accountRequest, createTransaction, transactionsRequest } from "../services/requests";
 import dotsLoad from "../svg/3_dots_load.svg";
 
 enum messageTypes {
@@ -12,6 +13,7 @@ enum messageTypes {
 }
 
 function SendMoney() {
+  const { setUserBalance, setTransactions } = useContext(Context) as ContextInterface;
   const [userToSend, setUserToSend] = useState("");
   const [moneyToSend, setMoneyToSend] = useState<string | undefined>("0");
   const [loading, setLoading] = useState(false);
@@ -90,6 +92,15 @@ function SendMoney() {
     }
   };
 
+  const updateMoneyAndTransactions = async () => {
+    const account = await accountRequest();
+
+    const transactions = await transactionsRequest();
+
+    setUserBalance(account.data.balance);
+    setTransactions(transactions.data);    
+  }
+
   const handleSend = async (money: string | undefined, user: string) => {
     const checkMoney = validateMoney(money);
     const checkUser = validateUser(user);
@@ -110,7 +121,6 @@ function SendMoney() {
         handleError(response);
         return;
       }
-
       
       setUserToSend("");
       setMoneyToSend("0");
@@ -118,6 +128,8 @@ function SendMoney() {
         type: messageTypes.SUCCESS,
         data: "Transação realizada com sucesso"
       });
+
+      updateMoneyAndTransactions();
 
       setTimeout(() => { 
         setMessage({
