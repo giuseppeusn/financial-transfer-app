@@ -76,7 +76,7 @@ function UserPanel() {
         loading ? (
           <Loading />
         ) : (
-          <div className="w-[20rem]">
+          <div>
             <div className="flex">
               <h1>Olá, @{ username }!</h1>
               <h1>{ currencyFormatter(userBalance) }</h1>

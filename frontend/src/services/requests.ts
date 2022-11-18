@@ -54,3 +54,15 @@ export const transactionsRequest = async () => {
 
   return data;
 }
+
+export const createTransaction = async (username: string, value: number) => {
+  try {
+    const data = await axiosRequest.post('/transaction', { username, value });
+
+    return data;
+  } catch (err) {
+    const error = err as AxiosError;
+
+    return error;
+  }
+}
