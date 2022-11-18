@@ -9,21 +9,21 @@ const errorHandler: ErrorRequestHandler = (
   res,
   _next,
 ) => {
-  if (err instanceof ZodError) { 
-    return res.status(400).json({ message: err.issues[0].message });
+  if (err instanceof ZodError) {
+    return res.status(400).json({ code: err.issues[0].code, message: err.issues[0].message });
   }
 
-  if (err instanceof JsonWebTokenError) { 
-    return res.status(401).json({ message: err.message });
+  if (err instanceof JsonWebTokenError) {
+    return res.status(401).json({ code: "jwt_error", message: err.message });
   }
 
   const messageAsErrorType = err.message as ErrorTypes;
   const mappedError = errorCatalog[messageAsErrorType];
 
   if (mappedError) {
-    const { httpStatus, message } = mappedError;
+    const { code, httpStatus, message } = mappedError;
 
-    return res.status(httpStatus).json({ message });
+    return res.status(httpStatus).json({ code, message });
   }
 
   console.error(err);

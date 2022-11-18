@@ -3,7 +3,7 @@ import { ReasonPhrases } from '../utils/HttpStatusCode';
 
 const { isRequired, invalidType, invalidLength } = ReasonPhrases;
 
-export const LoginSchema = z.object({
+export const RegisterSchema = z.object({
   username: z.string({
     required_error: isRequired('username'),
     invalid_type_error: invalidType('username', 'string'),
@@ -20,4 +20,4 @@ export const LoginSchema = z.object({
   }),
 });
 
-export type ILogin = z.infer<typeof LoginSchema>;
+export type IRegister = z.infer<typeof RegisterSchema>;
