@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import React, { useContext, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import CurrencyInput from "react-currency-input-field";
 import Context, { ContextInterface } from "../context/Context";
 import IAxiosError from "../interfaces/ResponseDataError";
@@ -101,7 +101,9 @@ function SendMoney() {
     setTransactions(transactions.data);    
   }
 
-  const handleSend = async (money: string | undefined, user: string) => {
+  const handleSend = async (e: FormEvent, money: string | undefined, user: string) => {
+    e.preventDefault();
+
     const checkMoney = validateMoney(money);
     const checkUser = validateUser(user);
 
@@ -143,7 +145,7 @@ function SendMoney() {
   return (
     <div className="flex flex-col items-center">
       <h1>Enviar dinheiro</h1>
-      <div className="flex">
+      <form className="flex">
         <input
           type="text"
           placeholder="Digite o nome do usuário"
@@ -163,10 +165,10 @@ function SendMoney() {
           className="outline-none border-2 px-2 mr-2 border-neutral-900 rounded-md"
         />
         <button
-          type="button"
+          type="submit"
           className="w-20 h-[2.5rem] bg-black text-white rounded-md
           uppercase hover:bg-zinc-800 flex justify-center items-center cursor-pointer"
-          onClick={ () => handleSend(moneyToSend, userToSend) }
+          onClick={ (e) => handleSend(e, moneyToSend, userToSend) }
           disabled={loading}
         >
           { loading ? (
@@ -176,7 +178,7 @@ function SendMoney() {
             )
           }
         </button>
-      </div>
+      </form>
       <p
         className={`
           h-[1.5rem] w-auto text-center mb-3
