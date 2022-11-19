@@ -32,9 +32,14 @@ export default class UserController {
       throw Error(ErrorTypes.TokenNotFound);
     }
 
-    validateToken(token);
+    const { id } = validateToken(token);
+
+    const user = await this.userService.getUserById(id); 
+
+    if (!user) {
+      throw Error(ErrorTypes.UserNotFound);
+    }
 
     return res.status(StatusCodes.NO_CONTENT).end();
   }
-
 }

@@ -55,6 +55,9 @@ function TransactionsList({ transactions }: TransactionsListProps) {
       case moneyType !== "all":
         filterByMoneyType();
         break;
+      default:
+        setTransactionsArray(transactions);
+        break;
     }
   };
 
@@ -63,24 +66,41 @@ function TransactionsList({ transactions }: TransactionsListProps) {
   }, [transactions]);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex">
-        <div>
+    <div
+      className="flex flex-col items-center h-[90vh] bg-white rounded-xl py-2 px-4 border-8 border-white"
+    >
+      <h1 className="self-start text-xl mb-5 font-semibold uppercase">Histórico de transações</h1>
+      <div className="flex w-full justify-around mb-5">
+        <div className="flex flex-col items-center">
           <label>Data da transação</label>
-          <input type="date" onChange={(e) => selectDate(e.target.value)} />
+          <input
+            type="date"
+            onChange={(e) => selectDate(e.target.value)}
+            className="outline-none border-2 border-black rounded-md px-2 text-center"
+          />
         </div>
-        <div>
+        <div className="flex flex-col items-center">
           <label>Tipo de transação</label>
-          <select onChange={ (e) => setMoneyType(e.target.value) }>
+          <select
+            onChange={ (e) => setMoneyType(e.target.value) }
+            className="outline-none border-2 border-black rounded-md px-2 h-[1.875rem] text-center"
+          >
             <option value="all">Todos</option>
             <option value="cash-in">Recebimentos</option>
             <option value="cash-out">Envios</option>
           </select>
         </div>
+        <button
+          onClick={ filterTransactions }
+          className="w-20 h-[2.5rem] bg-black text-white rounded-md
+          uppercase hover:bg-zinc-800 flex justify-center items-center cursor-pointer"
+        >
+          Filtrar
+        </button>
       </div>
-      <button onClick={ filterTransactions }>filter</button>
       <div
-        className="flex flex-col items-center overflow-auto h-[90vh] w-[30rem] bg-white rounded-xl py-2 px-8"
+        className="overflow-auto h-auto w-[30rem] scrollbar-thin scrollbar-thumb-neutral-400
+        scrollbar-thumb-rounded"
       >
         {
           transactionsArray.length ? (
@@ -119,7 +139,7 @@ function TransactionsList({ transactions }: TransactionsListProps) {
               );
             })
           ) : (
-            <span>
+            <span className="flex justify-center">
               Nenhuma transação encontrada
             </span>
           )
