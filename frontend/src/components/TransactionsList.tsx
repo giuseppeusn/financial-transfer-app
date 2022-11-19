@@ -60,7 +60,7 @@ function TransactionsList({ transactions }: TransactionsListProps) {
 
   useEffect(() => {
     setTransactionsArray(transactions);
-  }, []);
+  }, [transactions]);
 
   return (
     <>
