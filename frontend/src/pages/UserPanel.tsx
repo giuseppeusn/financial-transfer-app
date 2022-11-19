@@ -1,15 +1,23 @@
 import { AxiosError } from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
+import SendMoney from "../components/SendMoney";
+import TransactionsList from "../components/TransactionsList";
+import Context, { ContextInterface } from "../context/Context";
 import IAxiosError from "../interfaces/ResponseDataError";
-import Transaction from "../interfaces/Transaction";
 import { accountRequest, setToken, transactionsRequest, validateToken } from "../services/requests";
 import currencyFormatter from "../utils/CurrencyFormatter";
 
 function UserPanel() {
-  const [userBalance, setUserBalance] = useState("0");
-  const [transactions, setTransactions] = useState([]);
+  const {
+    userBalance,
+    setUserBalance,
+    transactions,
+    setTransactions
+  } = useContext(Context) as ContextInterface;
+
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -33,6 +41,7 @@ function UserPanel() {
   const fetchAccount = async () => {
     const response = await accountRequest();
     
+    
     fetchTransactions();    
     setUserBalance(response.data.balance);
   }
@@ -52,12 +61,18 @@ function UserPanel() {
     fetchAccount();
   };
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
   useEffect(() => {
     const { username, token } = JSON.parse(localStorage.getItem("user") || "{}");
-
+    
     if (!token) {
       navigate("/");
     } else {
+      setUsername(username);
       fetchToken(token, username);
     }
   }, []);
@@ -68,42 +83,23 @@ function UserPanel() {
         loading ? (
           <Loading />
         ) : (
-          <div className="w-[20rem]">
-            <h1>{ currencyFormatter(userBalance) }</h1>
-            {
-              transactions.map((transaction: Transaction) => {
-                const { id, value, name, type, date, hour } = transaction;
-                const transBalance = currencyFormatter(value);
-
-                return (
-                  <div key={ id } className="flex flex-col items-center">
-                    {
-                      type === "cash-in" ? (
-                        <span>
-                          <b>@{ name }</b> enviou { transBalance } para você
-                        </span>
-                      ) : (
-                        <span>
-                          <b>Você</b> enviou { transBalance } para <b>@{ name }</b>
-                        </span>
-                      )
-                    }
-                    <span
-                      className={type === "cash-in" ? "text-green-700" : "text-red-700"}
-                    >
-                      <span className="mr-1">
-                        { type === "cash-in" ? "+" : "-" }
-                      </span>
-                      { transBalance }
-                    </span>
-                    <div className="w-auto flex justify-around">
-                      <span>{ date }</span>
-                      <span>{ hour }</span>
-                    </div>
-                  </div>
-                );
-                })
-            }
+          <div className="bg-zinc-800 flex h-screen justify-around items-center">
+            <div className="bg-white w-[35rem] h-[15rem] flex flex-col items-center justify-center rounded-xl">
+              <div className="flex flex-col items-center">
+                <h1>Olá, @{ username }!</h1>
+                <h1>Saldo: { currencyFormatter(userBalance) }</h1>
+                <button
+                  type="button"
+                  className="bg-black w-[5rem] text-white py-1 px-3 rounded-md uppercase
+                  hover:bg-zinc-800 flex justify-center items-center"
+                  onClick={ logout }
+                >
+                  Sair
+                </button>
+              </div>
+              <SendMoney />
+            </div>
+            <TransactionsList transactions={ transactions } />
           </div>
         )
       }

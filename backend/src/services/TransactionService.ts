@@ -73,6 +73,9 @@ export default class TransactionService {
           }
         ]
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     const serialized = await serializeTransactions(transactions, id);
