@@ -80,7 +80,9 @@ function TransactionsList({ transactions }: TransactionsListProps) {
       </div>
       <button onClick={ filterTransactions }>filter</button>
       <div
-        className="flex flex-col items-center overflow-auto h-[90vh] w-[30rem] bg-white rounded-xl py-2 px-8"
+        className="flex flex-col items-center overflow-auto h-[90vh] w-[30rem]
+        bg-white rounded-xl py-2 px-8 scrollbar-thin scrollbar-thumb-neutral-400
+        scrollbar-thumb-rounded"
       >
         {
           transactionsArray.length ? (
