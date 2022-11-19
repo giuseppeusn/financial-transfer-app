@@ -63,8 +63,8 @@ function TransactionsList({ transactions }: TransactionsListProps) {
   }, [transactions]);
 
   return (
-    <>
-      <div className="flex flex-col">
+    <div className="flex flex-col">
+      <div className="flex">
         <div>
           <label>Data da transação</label>
           <input type="date" onChange={(e) => selectDate(e.target.value)} />
@@ -79,7 +79,9 @@ function TransactionsList({ transactions }: TransactionsListProps) {
         </div>
       </div>
       <button onClick={ filterTransactions }>filter</button>
-      <div className="flex flex-col items-center">
+      <div
+        className="flex flex-col items-center overflow-auto h-[90vh] w-[30rem] bg-white rounded-xl py-2 px-8"
+      >
         {
           transactionsArray.length ? (
             transactionsArray.map((transaction: Transaction) => {
@@ -87,27 +89,29 @@ function TransactionsList({ transactions }: TransactionsListProps) {
               const transBalance = currencyFormatter(value);
 
               return (
-                <div key={ id } className="flex flex-col items-center">
-                  {
-                    type === "cash-in" ? (
-                      <span>
-                        <b>@{ name }</b> enviou { transBalance } para você
+                <div key={ id } className="w-full border-b-[1px] border-gray-200 p-3">
+                  <div className="flex justify-around">
+                    {
+                      type === "cash-in" ? (
+                        <span>
+                          <b>@{ name }</b> enviou { transBalance } para você
+                        </span>
+                      ) : (
+                        <span>
+                          <b>Você</b> enviou { transBalance } para <b>@{ name }</b>
+                        </span>
+                      )
+                    }
+                    <span
+                      className={type === "cash-in" ? "text-green-700" : "text-red-700"}
+                    >
+                      <span className="mr-1">
+                        { type === "cash-in" ? "+" : "-" }
                       </span>
-                    ) : (
-                      <span>
-                        <b>Você</b> enviou { transBalance } para <b>@{ name }</b>
-                      </span>
-                    )
-                  }
-                  <span
-                    className={type === "cash-in" ? "text-green-700" : "text-red-700"}
-                  >
-                    <span className="mr-1">
-                      { type === "cash-in" ? "+" : "-" }
+                      { transBalance }
                     </span>
-                    { transBalance }
-                  </span>
-                  <div className="w-auto flex justify-around">
+                  </div>
+                  <div className="w-auto flex justify-around w-[20rem]">
                     <span>{ date }</span>
                     <span>{ hour }</span>
                   </div>
@@ -121,7 +125,7 @@ function TransactionsList({ transactions }: TransactionsListProps) {
           )
         }
       </div>
-    </>
+    </div>
   );
 }
 

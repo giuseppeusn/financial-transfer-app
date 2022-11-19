@@ -141,7 +141,7 @@ function SendMoney() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h1>Enviar dinheiro</h1>
       <div className="flex">
         <input

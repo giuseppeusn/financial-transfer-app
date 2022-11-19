@@ -83,20 +83,22 @@ function UserPanel() {
         loading ? (
           <Loading />
         ) : (
-          <div>
-            <div className="flex">
-              <h1>Olá, @{ username }!</h1>
-              <h1>{ currencyFormatter(userBalance) }</h1>
-              <button
-                type="button"
-                className="bg-black text-white py-1 px-3 rounded-md uppercase
-                hover:bg-zinc-800 flex justify-center items-center"
-                onClick={ logout }
-              >
-                Sair
-              </button>
+          <div className="bg-zinc-800 flex h-screen justify-around items-center">
+            <div className="bg-white w-[35rem] h-[15rem] flex flex-col items-center justify-center rounded-xl">
+              <div className="flex flex-col items-center">
+                <h1>Olá, @{ username }!</h1>
+                <h1>Saldo: { currencyFormatter(userBalance) }</h1>
+                <button
+                  type="button"
+                  className="bg-black w-[5rem] text-white py-1 px-3 rounded-md uppercase
+                  hover:bg-zinc-800 flex justify-center items-center"
+                  onClick={ logout }
+                >
+                  Sair
+                </button>
+              </div>
+              <SendMoney />
             </div>
-            <SendMoney />
             <TransactionsList transactions={ transactions } />
           </div>
         )
