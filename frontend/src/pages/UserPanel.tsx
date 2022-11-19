@@ -23,9 +23,9 @@ function UserPanel() {
 
   const handleError = (err: AxiosError) => {
     if (err.response) {
-      const { response: { data: { code }, status } } = err as IAxiosError;
+      const { response: { data: { code }, status } } = err as IAxiosError;      
 
-      if (status !== 204 && code === "jwt_error") {
+      if ((status === 404 && code === "user_not_found") || code === "jwt_error") {
         navigate("/");
       }
     }
@@ -40,7 +40,6 @@ function UserPanel() {
 
   const fetchAccount = async () => {
     const response = await accountRequest();
-    
     
     fetchTransactions();    
     setUserBalance(response.data.balance);
