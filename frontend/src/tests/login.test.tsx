@@ -8,7 +8,7 @@ import App from '../App';
 describe('Login page test', () => {
   it('renders login form successfully', () => {
     renderWithRouter(<App />, { route: '/' });
-    const loginTitle = screen.getByText(/fazer login/i);
+    const loginTitle = screen.getByText(/faça login/i);
     const username = screen.getByTestId('username-input');
     const password = screen.getByTestId('password-input');
     const loginButton = screen.getByTestId('main-form-button');
@@ -17,8 +17,12 @@ describe('Login page test', () => {
     expect(loginTitle).toBeInTheDocument();
     expect(username).toBeInTheDocument();
     expect(password).toBeInTheDocument();
+    
     expect(loginButton).toBeInTheDocument();
     expect(registerButton).toBeInTheDocument();
+
+    expect(loginButton).toHaveTextContent(/entrar/i);
+    expect(registerButton).toHaveTextContent(/crie uma conta/i);
   });
 
   it('secondary button redirects to register', () => {
