@@ -2,7 +2,7 @@
 
 ## Projeto
 
-Um projeto full stack que permite um usuário fazer transferência de dinheiro para outro. Para acesso à aplicação é necessário que o usuário faça autenticação na plataforma ou faço o cadastro. Após autenticado o usuário receberá automaticamente R$ 100,00 em sua conta e tem acesso ao painel que mostra o seu saldo atual, um campo para digitar um usuário que ele deseja enviar dinheiro e um histórico de transações, mostrando envios e recebimentos de dinheiro na conta.
+Um projeto full stack que permite um usuário fazer transferência de dinheiro para outro. Para acesso à aplicação é necessário que o usuário faça autenticação na plataforma ou faço o cadastro. Após autenticado o usuário receberá automaticamente R$ 100,00 em sua conta e tem acesso ao painel que mostra o seu saldo atual, um campo para digitar um usuário e a quantia em dinheiro que ele deseja enviar e um histórico de transações, mostrando transações da conta podendo ser filtrado por data e/ou tipo de transação (envios/recebimentos).
 
 ## Desenvolvido utilizando (principais stacks)
 > TypeScript, Node JS, React JS, PostgreSQL, Prisma ORM, Express JS e Tailwind CSS
@@ -20,11 +20,11 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 
 > ### Frontend
 > 1 - Entre no diretório `/frontend` <br>
-> 2 - Execute o comando `npm run test` - (caso execute fora do docker, digite antes o comando `npm install` no diretório `/frontend`
+> 2 - Execute o comando `npm run test` - (caso execute fora do docker, digite antes o comando `npm install` no diretório `/frontend`)
 
 ### Comandos opcionais - backend:
 > `npx prisma generate` - gera o cliente do prisma  (recomendado caso ocorra algum erro no backend) <br>
-> `npm run start:migrate` - insere as migrações já criadas a  e inicia a API em live reload <br>
+> `npm run start:migrate` - insere as migrações já criadas e inicia a API em live reload <br>
 > `npx prisma migrate deploy` - insere as migrações já criadas <br>
 > `npm run dev` - inicia a API em live reload <br>
 > `npm run dev:migrate` - gera novas migrações do prisma a partir do schema <br>
