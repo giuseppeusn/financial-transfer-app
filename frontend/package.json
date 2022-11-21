@@ -5,15 +5,16 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.3",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.9",
     "axios": "^1.1.3",
+    "history": "^5.3.0",
     "react": "^18.2.0",
     "react-currency-input-field": "^3.6.9",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "typescript": "^4.8.4",
@@ -23,7 +24,7 @@
     "start": "react-scripts start",
     "start:docker": "WATCHPACK_POLLING=true react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,12 +46,15 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.19.0",
+    "@testing-library/user-event": "^14.4.3",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.20.0",
     "eslint-config-trybe-frontend": "^1.3.1",
     "eslint-plugin-react": "^7.30.1",
+    "msw": "^0.49.0",
     "postcss": "^8.4.19",
     "tailwind-scrollbar": "^2.0.1",
     "tailwindcss": "^3.2.4"

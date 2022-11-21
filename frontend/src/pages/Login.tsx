@@ -47,7 +47,7 @@ function Login() {
     
     setLoading(true);
     const response = await loginRequest(username, password);
-    setLoading(false);
+    setLoading(false);    
 
     if (response instanceof AxiosError) {
       handleError(response);
@@ -67,8 +67,8 @@ function Login() {
     >
       <img src={mainImage} alt="Transfer money" className="h-[35rem]" />
       <FormLogin
-        title="Fazer login"
-        mainButton="Login"
+        title="Faça login"
+        mainButton="Entrar"
         secondaryButton="Crie uma conta"
         username={username}
         password={password}

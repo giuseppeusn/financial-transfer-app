@@ -61,6 +61,22 @@ function SendMoney() {
     return true;
   };
 
+  const handleUserToSend = (e: string) => {
+    setUserToSend(e);
+    setMessage({
+      type: messageTypes.NULL,
+      data: "",
+    });
+  }
+
+  const handleMoneyToSend = (e: string | undefined) => {
+    setMoneyToSend(e);
+    setMessage({
+      type: messageTypes.NULL,
+      data: "",
+    });
+  }
+
   const handleError = (err: AxiosError) => {
     if (err.response) {
       const { response: { data: { code }, status } } = err as IAxiosError;
@@ -144,14 +160,19 @@ function SendMoney() {
 
   return (
     <div className="flex flex-col items-center">
-      <h1>Enviar dinheiro</h1>
-      <form className="flex">
+      <h1 className="self-start text-md mb-5 font-semibold uppercase">
+        Enviar dinheiro
+      </h1>
+      <form className="flex mb-3">
         <input
           type="text"
           placeholder="Digite o nome do usuário"
-          className="outline-none border-2 px-2 mr-2 border-neutral-900 rounded-md"
+          className="appearance-none bg-transparent border-b-2
+          border-neutral-300 outline-none text-zinc-700 mr-3 py-3 px-2
+          leading-tight focus:border-neutral-900 transition-all 
+          ease-in duration-300"
           value={userToSend}
-          onChange={ (e) => setUserToSend(e.target.value) }
+          onChange={ (e) => handleUserToSend(e.target.value) }
         />
         <CurrencyInput
           id="input-example"
@@ -161,8 +182,11 @@ function SendMoney() {
           groupSeparator="."
           decimalSeparator=","
           value={moneyToSend}
-          onValueChange={(value) => setMoneyToSend(value)}
-          className="outline-none border-2 px-2 mr-2 border-neutral-900 rounded-md"
+          onValueChange={(value) => handleMoneyToSend(value)}
+          className="appearance-none bg-transparent border-b-2
+          border-neutral-300 outline-none w-[5rem] text-zinc-700 mr-3 py-3 px-2
+          leading-tight focus:border-neutral-900 transition-all 
+          ease-in duration-300"
         />
         <button
           type="submit"

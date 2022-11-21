@@ -70,20 +70,26 @@ function TransactionsList({ transactions }: TransactionsListProps) {
       className="flex flex-col items-center h-[90vh] bg-white rounded-xl py-2 px-4 border-8 border-white"
     >
       <h1 className="self-start text-xl mb-5 font-semibold uppercase">Histórico de transações</h1>
-      <div className="flex w-full justify-around mb-5">
+      <div className="flex w-full justify-around mb-5 items-center">
         <div className="flex flex-col items-center">
           <label>Data da transação</label>
           <input
             type="date"
             onChange={(e) => selectDate(e.target.value)}
-            className="outline-none border-2 border-black rounded-md px-2 text-center"
+            className="bg-transparent border-b-2
+            border-neutral-300 outline-none text-zinc-700 mr-3 py-3 px-2
+            leading-tight focus:border-neutral-900 transition-all 
+            ease-in duration-300"
           />
         </div>
         <div className="flex flex-col items-center">
           <label>Tipo de transação</label>
           <select
             onChange={ (e) => setMoneyType(e.target.value) }
-            className="outline-none border-2 border-black rounded-md px-2 h-[1.875rem] text-center"
+            className="bg-transparent border-b-2
+            border-neutral-300 outline-none text-zinc-700 mr-3 py-3 px-2
+            leading-tight focus:border-neutral-900 transition-all 
+            ease-in duration-300 text-center"
           >
             <option value="all">Todos</option>
             <option value="cash-in">Recebimentos</option>
@@ -109,32 +115,35 @@ function TransactionsList({ transactions }: TransactionsListProps) {
               const transBalance = currencyFormatter(value);
 
               return (
-                <div key={ id } className="w-full border-b-[1px] border-gray-200 p-3">
-                  <div className="flex justify-around">
-                    {
-                      type === "cash-in" ? (
-                        <span>
-                          <b>@{ name }</b> enviou { transBalance } para você
-                        </span>
-                      ) : (
-                        <span>
-                          <b>Você</b> enviou { transBalance } para <b>@{ name }</b>
-                        </span>
-                      )
-                    }
-                    <span
-                      className={type === "cash-in" ? "text-green-700" : "text-red-700"}
-                    >
-                      <span className="mr-1">
-                        { type === "cash-in" ? "+" : "-" }
-                      </span>
-                      { transBalance }
+                <div key={ id } className="flex items-center justify-around
+                w-full border-b-[1px] border-gray-200 p-3">
+                  <div className="flex flex-col">
+                    <div className="mb-2">
+                      {
+                        type === "cash-in" ? (
+                          <>
+                            <b>@{ name }</b> enviou { transBalance } para você
+                          </>
+                        ) : (
+                          <>
+                            <b>Você</b> enviou { transBalance } para <b>@{ name }</b>
+                          </>
+                        )
+                      }
+                    </div>
+                    <div className="flex justify-around text-neutral-500">
+                      <span>{ date }</span>
+                      <span>{ hour }</span>
+                    </div>
+                  </div>
+                  <span
+                    className={type === "cash-in" ? "text-green-700" : "text-red-700"}
+                  >
+                    <span className="mr-1">
+                      { type === "cash-in" ? "+" : "-" }
                     </span>
-                  </div>
-                  <div className="w-auto flex justify-around w-[20rem]">
-                    <span>{ date }</span>
-                    <span>{ hour }</span>
-                  </div>
+                    { transBalance }
+                  </span>
                 </div>
               );
             })

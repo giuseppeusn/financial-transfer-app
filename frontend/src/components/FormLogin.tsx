@@ -47,6 +47,7 @@ function FormLogin({
         border-gray-300 outline-none w-4/5 text-zinc-700 mr-3 py-3 px-2
         leading-tight focus:border-zinc-900 transition-all 
         ease-in duration-300"
+        data-testid="username-input"
       />
       <input
         type="password"
@@ -59,6 +60,7 @@ function FormLogin({
         border-gray-300 outline-none w-4/5 text-zinc-700 mr-3 py-3 px-2
         leading-tight focus:border-zinc-900 transition-all 
         ease-in duration-300"
+        data-testid="password-input"
       />
       <p
         className={`
@@ -74,6 +76,7 @@ function FormLogin({
         className="w-4/5 h-[2.5rem] bg-black text-white p-2
         rounded-md uppercase hover:bg-zinc-800 flex justify-center items-center"
         disabled={ loading }
+        data-testid="main-form-button"
       >
         { loading ? (
             <img src={ dotsLoad } alt="Loading" className="h-8" />
@@ -86,6 +89,7 @@ function FormLogin({
         onClick={ handleSecondaryBtn }
         className="w-4/5 text-zinc-500 font-semibold
         text-center hover:cursor-pointer hover:text-zinc-900"
+        data-testid="secondary-form-button"
       >
         { secondaryButton }
       </span>
