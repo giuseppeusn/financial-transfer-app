@@ -9,9 +9,9 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 
 ## Rodando o projeto
 > 1 - Clone o projeto <br>
-> 2 - Entre no diretório `/financial-transfer-app` <br>
+> 2 - Entre no diretório `/financial-transfer-app/backend` e altere o nome do arquivo `.env.example` para apenas `.env` <br>
 > 3 - Inicie o docker <br>
-> 4 - Execute o comando `docker-compose up -d` na raíz do projeto <br>
+> 4 - Execute o comando `docker-compose up -d` na raíz do projeto (`/financial-transfer-app`) <br>
 > O compose já instala as dependências, executa os serviços e faz as migrações. Caso não ocorra, verifique os comandos opcionais abaixo.
 
 ## Rodando os testes
@@ -29,7 +29,7 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 > `npm run dev:migrate` - gera novas migrações do prisma a partir do schema <br>
 
 ### Comandos opcionais - frontend:
-> `npm start` - inicia a aplicação React
+> `npm start` - inicia a aplicação React <br>
 > `npm start:docker` - inicia a aplicação React em live reload no docker compatível com Windows
 
 <b>Importante:</b> recomendado rodar os comandos dentro do docker para evitar incompatibilidade de sistema
