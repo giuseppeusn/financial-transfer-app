@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --poll --exit-child src/api/server.ts",
-    "start:migrate": "prisma migrate deploy && npm run dev && npx prisma generate",
+    "start:migrate": "prisma migrate deploy && npx prisma generate && npm run dev",
     "dev:migrate": "prisma migrate dev --name create-tables-users-accounts-transactions"
   },
   "keywords": [],
