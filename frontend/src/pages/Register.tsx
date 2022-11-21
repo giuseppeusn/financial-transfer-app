@@ -81,7 +81,7 @@ function Register() {
 
     setLoading(true);
     const response = await registerRequest(username, password);
-    setLoading(false);
+    setLoading(false);    
 
     if (response instanceof AxiosError) {
       handleError(response);
@@ -101,7 +101,7 @@ function Register() {
     >
       <img src={mobilePay} alt="Transfer money" className="h-[35rem]" />
       <FormLogin
-        title="Criar conta"
+        title="Crie uma conta"
         mainButton="Criar conta"
         secondaryButton="Já tenho uma conta"
         username={username}
