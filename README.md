@@ -12,14 +12,15 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 > 2 - Entre no diretório `/financial-transfer-app/backend` e altere o nome do arquivo `.env.example` para apenas `.env` <br>
 > 3 - Inicie o docker <br>
 > 4 - Execute o comando `docker-compose up -d` na raíz do projeto (`/financial-transfer-app`) <br>
-> O compose já instala as dependências, executa os serviços e faz as migrações. Caso não ocorra, verifique os comandos opcionais abaixo.
+> *O compose já instala as dependências, executa os serviços e faz as migrações. Caso não ocorra, verifique os comandos opcionais abaixo* <br>
+> 5 - Acesse `http://localhost:3000` no navegador (caso apresente erro aguarde alguns minutos para a aplicação terminar de iniciar)
 
 ## Rodando os testes
 *os testes ainda estão em desenvolvimento, por esse motivo a cobertura está baixa*
 
 > ### Frontend
 > 1 - Entre no diretório `/frontend` <br>
-> 2 - Execute o comando `npm run test`
+> 2 - Execute o comando `npm run test` - (caso execute fora do docker, digite antes o comando `npm install` no diretório `/frontend`
 
 ### Comandos opcionais - backend:
 > `npx prisma generate` - gera o cliente do prisma  (recomendado caso ocorra algum erro no backend) <br>
