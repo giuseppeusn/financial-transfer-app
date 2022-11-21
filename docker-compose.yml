@@ -5,9 +5,9 @@ services:
     build: ./frontend
     ports:
       - 3000:3000
-    working_dir: /app-frontend
     volumes:
       - ./frontend:/app-frontend
+      - /app-frontend/node_modules
     depends_on:
       - backend
   backend:
@@ -15,9 +15,9 @@ services:
     build: ./backend
     ports:
       - 3001:3001
-    working_dir: /app-backend
     volumes:
       - ./backend:/app-backend
+      - /app-backend/node_modules
     depends_on:
       - db
   db:

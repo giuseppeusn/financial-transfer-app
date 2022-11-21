@@ -1,6 +1,8 @@
 FROM node:16.14-alpine
 WORKDIR /app-frontend
  
-COPY . .
+COPY package*.json ./
 RUN npm install
-CMD ["npm", "start:docker"]
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+
+CMD ["npm", "start"]
