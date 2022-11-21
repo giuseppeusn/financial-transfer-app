@@ -29,7 +29,7 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 > `npm run dev:migrate` - gera novas migrações do prisma a partir do schema <br>
 
 ### Comandos opcionais - frontend:
-> `npm start` - inicia a aplicação React
+> `npm start` - inicia a aplicação React <br>
 > `npm start:docker` - inicia a aplicação React em live reload no docker compatível com Windows
 
 <b>Importante:</b> recomendado rodar os comandos dentro do docker para evitar incompatibilidade de sistema
