@@ -30,5 +30,6 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 
 ### Comandos opcionais - frontend:
 > `npm start` - inicia a aplicação React
+> `npm start:docker` - inicia a aplicação React em live reload no docker compatível com Windows
 
 <b>Importante:</b> recomendado rodar os comandos dentro do docker para evitar incompatibilidade de sistema
