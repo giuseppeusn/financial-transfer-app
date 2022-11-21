@@ -9,7 +9,8 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 
 ## Rodando o projeto
 > 1 - Clone o projeto <br>
-> 2 - Entre no diretório `/financial-transfer-app/backend` e altere o nome do arquivo `.env.example` para apenas `.env` <br>
+> 2 - Entre no diretório `/financial-transfer-app/backend` e altere o nome do arquivo `.env.example` para apenas `.env`<br>
+*(faça alterações no `.env` caso seja necessário)* <br>
 > 3 - Inicie o docker <br>
 > 4 - Execute o comando `docker-compose up -d` na raíz do projeto (`/financial-transfer-app`) <br>
 > *O compose já instala as dependências, executa os serviços e faz as migrações. Caso não ocorra, verifique os comandos opcionais abaixo* <br>
