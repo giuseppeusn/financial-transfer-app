@@ -14,6 +14,13 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 > 4 - Execute o comando `docker-compose up -d` na raíz do projeto <br>
 > O compose já instala as dependências, executa os serviços e faz as migrações. Caso não ocorra, verifique os comandos opcionais abaixo.
 
+## Rodando os testes
+*os testes ainda estão em desenvolvimento, por esse motivo a cobertura está baixa*
+
+> ### Frontend
+> 1 - Entre no diretório `/frontend` <br>
+> 2 - Execute o comando `npm run test`
+
 ### Comandos opcionais - backend:
 > `npx prisma generate` - gera o cliente do prisma  (recomendado caso ocorra algum erro no backend) <br>
 > `npm run start:migrate` - insere as migrações já criadas a  e inicia a API em live reload <br>
