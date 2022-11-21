@@ -20,7 +20,7 @@ Um projeto full stack que permite um usuário fazer transferência de dinheiro p
 
 > ### Frontend
 > 1 - Entre no diretório `/frontend` <br>
-> 2 - Execute o comando `npm run test` - (caso execute fora do docker, digite antes o comando `npm install` no diretório `/frontend`
+> 2 - Execute o comando `npm run test` - (caso execute fora do docker, digite antes o comando `npm install` no diretório `/frontend`)
 
 ### Comandos opcionais - backend:
 > `npx prisma generate` - gera o cliente do prisma  (recomendado caso ocorra algum erro no backend) <br>
