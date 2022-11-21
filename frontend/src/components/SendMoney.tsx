@@ -78,6 +78,8 @@ function SendMoney() {
   }
 
   const handleError = (err: AxiosError) => {
+    console.log(err);
+    
     if (err.response) {
       const { response: { data: { code }, status } } = err as IAxiosError;
 
@@ -92,6 +94,12 @@ function SendMoney() {
           setMessage({
             type: messageTypes.ERROR,
             data: "Saldo insuficiente"
+          });
+          break;
+        case status === 400 && code === "invalid_transaction":
+          setMessage({
+            type: messageTypes.ERROR,
+            data: "Você não pode transferir para você mesmo"
           });
           break;
         default:
@@ -182,6 +190,7 @@ function SendMoney() {
           groupSeparator="."
           decimalSeparator=","
           value={moneyToSend}
+          allowNegativeValue={false}
           onValueChange={(value) => handleMoneyToSend(value)}
           className="appearance-none bg-transparent border-b-2
           border-neutral-300 outline-none w-[5rem] text-zinc-700 mr-3 py-3 px-2
