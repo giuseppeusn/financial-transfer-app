@@ -77,9 +77,7 @@ function SendMoney() {
     });
   }
 
-  const handleError = (err: AxiosError) => {
-    console.log(err);
-    
+  const handleError = (err: AxiosError) => {    
     if (err.response) {
       const { response: { data: { code }, status } } = err as IAxiosError;
 
