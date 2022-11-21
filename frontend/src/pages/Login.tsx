@@ -47,7 +47,7 @@ function Login() {
     
     setLoading(true);
     const response = await loginRequest(username, password);
-    setLoading(false);
+    setLoading(false);    
 
     if (response instanceof AxiosError) {
       handleError(response);

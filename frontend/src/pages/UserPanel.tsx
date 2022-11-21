@@ -59,9 +59,9 @@ function UserPanel() {
   useEffect(() => {
     const { username, token } = JSON.parse(localStorage.getItem("user") || "{}");
     
-    if (!token) {
+    if (!token) {      
       navigate("/");
-    } else {
+    } else {      
       setUsername(username);
       fetchToken(token, username);
     }
